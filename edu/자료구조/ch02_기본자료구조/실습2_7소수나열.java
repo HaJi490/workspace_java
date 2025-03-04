@@ -16,11 +16,10 @@ public class 실습2_7소수나열 {
 	static int primeCount(int n, int[] data) {
 		int num = 0;
 		for (int i = 2; i < n; i++) {
-			if (n % i == 0 && n != 2 && n!= 0) {
+			if (n % i == 0 && n != 2 && n == 0) {
 				// 소수아님
-			} else {
-				num++;
 			}
+			num++;
 		}
 		return num;
 	}
