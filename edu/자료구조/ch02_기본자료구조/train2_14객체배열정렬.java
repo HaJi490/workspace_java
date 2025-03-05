@@ -65,29 +65,29 @@ class PhyscData implements Comparable<PhyscData> {
 		int result = 0;
 		if(this.name.compareTo(p.name) > 0) {
 			return 1;
-//		}else if (this.name.compareTo(p.name) < 0){
-//			return -1;
-//		} else {//키로 비교
-//			if(this.height.compareTo(p.height) > 0) {
-//				return 1;
-//			}else if(this.height.compareTo(p.height) < 0){
-//				result = -1;
-//			}else {//시력으로 비교
-//				if(this.vision.compareTo(p.vision) > 0) {
-//					result = 1;
-//				}else if(this.vision.compareTo(p.vision) < 0) {
-//					result = -1;
-//				}
-//			}
+		}else if (this.name.compareTo(p.name) < 0){
+			return -1;
+		} else {//키로 비교
+			if(this.height > p.height) {
+				return 1;
+			}else if(this.height < p.height){
+				result = -1;
+			}else {//시력으로 비교
+				if(this.vision > p.vision) {
+					result = 1;
+				}else if(this.vision < p.vision) {
+					result = -1;
+				}
+			}
 		}
 		return result;
 	}
 
-	public boolean equals(PhyscData ob) {// Object 클래스 상속
-		//PhyscData p = (PhyscData) ob;
-		if(this.name.compareTo(ob.name) > 0 ) {
+	public boolean equals(Object ob) {// Object 클래스 상속
+		PhyscData p = (PhyscData) ob;
+		if(this.name.compareTo(p.name) > 0 ) {
 			return false;
-		} else if(this.name.compareTo(ob.name) < 0) {
+		} else if(this.name.compareTo(p.name) < 0) {
 			return false;
 		}
 		return true;
@@ -124,6 +124,13 @@ public class train2_14객체배열정렬 {
 
 	static int binarySearch(PhyscData[] dt, String key) {
 		//if (data[i].equals(key)) ***으로 구현
+//		int result = 0;
+//		for(int i = 0 ; i < dt.length ; i++)
+//			if (dt[i].equals(key)==true) {
+//				result = i;
+//		}
+//		return result;
+//		
 		int pl = 0;
 		int pr = dt.length - 1;
 		
@@ -141,20 +148,8 @@ public class train2_14객체배열정렬 {
 		}
 		return -1;
 			
-//			}else if(dt[pc].equals(key) == false) {
-//				pr= pc-1;
-//			}
-//		}
-//		return result;
 	} // equals()를 사용하여 구현
-//		int result = 0;
-//		for(int i = 0 ; i<dt.length ; i++) {
-//			if(dt[i].equals(key) != false) {
-//				result = i;
-//			}
-//		}
-//		return result;
-//		}
+
 	
 	static PhyscData[] insertObject(PhyscData[] dt, PhyscData nnew) {
 		PhyscData[] new2 = new PhyscData[dt.length+1];

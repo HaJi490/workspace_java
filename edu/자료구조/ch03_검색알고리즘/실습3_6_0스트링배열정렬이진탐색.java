@@ -8,12 +8,64 @@ package ch03_검색알고리즘;
 */
 import java.util.Arrays;
 public class 실습3_6_0스트링배열정렬이진탐색 {
+	static void showData(String msg, String[] dt) {
+		System.out.println(msg);
+		for(String str : dt) {
+			System.out.print(str + " ");
+		}
+		System.out.println("\n");
+	}
+	
+	static void sortData(String[] dt) {
+		for ( int i = 0 ; i < dt.length ; i++)
+			for(int j = i+1 ; j < dt.length ; j++) {
+				if(dt[i].compareTo(dt[j]) > 0) {
+					swap(dt, i, j);
+				}
+			}
+	}
+		
+	static void swap(String[] dt, int i, int j) {
+		String temp = dt[i];
+		dt[i] = dt[j];
+		dt[j]=temp;
+	}
+	
+	static int linearSearch(String[] dt, String key) {
+		int i = 0;
+		while(true) {
+			if(i == dt.length)
+				return -1;
+			if(dt[i].equals(key))
+				return i ;
+			i++;
+			}
+		}
+	
+	
+	
+	static int binarySearch(String[] dt, String key) {
+		int pl = 0;
+		int pr = dt.length -1;
+		
+		while(pl <= pr) {
+			int pc = (pl+pr)/2;
+			if(dt[pc].equals(key))
+				return pc;
+			else if(key.compareTo(dt[pc]) < 0)
+				pl = pc+1;
+			else if(key.compareTo(dt[pc]) > 0)
+				pr = pc-1;
+		}
+		return -1;
+			
+	}
 
 	public static void main(String[] args) {
 		String []data = {"사과","포도","복숭아", "감", "산딸기", "블루베리", "대추", "수박", "참외"};
-		showData("정렬전", data);
+		showData("[정렬전]", data);
 		sortData(data);//올림차순으로 정렬 교재211-212 단순 선택 정렬 알고리즘으로 구현
-		showData("정렬후", data);
+		showData("[정렬후]", data);
 
 		String key = "포도";
 		int resultIndex = linearSearch(data, key);//교재 100 페이지 seqSearch() 함수로 구현

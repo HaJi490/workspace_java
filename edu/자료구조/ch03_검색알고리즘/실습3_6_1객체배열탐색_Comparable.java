@@ -40,6 +40,16 @@ class PhyscData2 implements Comparable<PhyscData2>{
 	String name;
 	int height;
 	double vision;
+	
+	
+	public PhyscData2(String name, int height, double vision) {
+		this.name = name;
+		this.height = height;
+		this.vision = vision;
+	}
+	
+	
+
 
 	@Override
 	public String toString() {//[홍길동,162,0.3] 형태로 리턴한다 
