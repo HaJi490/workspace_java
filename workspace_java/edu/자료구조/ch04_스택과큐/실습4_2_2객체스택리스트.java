@@ -18,7 +18,8 @@ import java.util.Scanner;
 class Point2 {
 	private int ix;
 	private int iy;
-
+	
+	//생성자
 	public Point2(int x, int y) {
 		ix = x;
 		iy = y;
@@ -39,21 +40,28 @@ class objectStack{
 	//--- 실행시 예외: 스택이 비어있음 ---//
 	// generic class는 Throwable을 상속받을 수 없다 - 지원하지 않는다
 	public class EmptyGenericStackException extends Exception {
-//추가
+		//추가
 	}
 
 	//--- 실행시 예외: 스택이 가득 참 ---//
 	public class OverflowGenericStackException extends RuntimeException {
-//추가
+		//추가
 	}
 
-    private List<Point2> data;           // 스택용 배열
+    private List<Point2>[] data; // 스택용 배열
 	private int capacity; // 스택의 크기
 	private int top; // 스택 포인터
 
-//--- 생성자(constructor) ---//
+	//--- 생성자(constructor) ---//
 	public objectStack(int capacity) {
 		//구현
+		try {
+			data = new List<Point2>[capacity];
+		}catch(OutOfMemoryError e) {
+			capacity = 0;
+		}
+		this.capacity = capacity;
+		top = 0;
 	}
 
 //--- 스택에 x를 푸시 ---//

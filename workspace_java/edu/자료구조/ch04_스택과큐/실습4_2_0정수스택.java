@@ -58,7 +58,7 @@ class IntStack3 {
 		if (top >= capacity) // 스택이 가득 참
 			throw new OverflowIntStackException("push: stack overflow");
 		//x를 받아서 top에 넣고 top을 증가시킴
-		//top이 1부터 시작하면 인덱스보다 1씩 클텐데 stk[top]은 값이 없는거 아닌가?
+		//배열이 꽉찼을때 stk[top]은 값이 없는거 아닌가?ㅇㅇ
 		stk[top++] = x;
 		return true;
 	}
@@ -66,9 +66,14 @@ class IntStack3 {
 	//--- 스택에서 데이터를 팝(정상에 있는 데이터를 꺼냄) ---//
 	public int pop() throws EmptyIntStackException {
 		//추가
-		if(top <= 0)
+		if(top < 0)
 			throw new EmptyIntStackException("pop : stack is Empty");
-		return stk[--top] ; 
+		//top-1로하면 top의값엔 변화가 없음
+		//--top으로 하면 top값이 변함 > 증감연산자 #변숫값을 1씩증가 또는 감소
+		int temp = stk[top-1];
+		//top에서 빼고 값넣는거
+		stk[--top] = 0 ;
+		return temp; 
 	}
 
 	//--- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
@@ -83,7 +88,9 @@ class IntStack3 {
 	//--- 스택을 비움 ---//
 	public void clear() {
 		//추가
-		top = 0;
+		for(int i = 0; i < top ; i++) {
+			stk[i] = 0;
+		}
 	}
 
 	//--- 스택에서 x를 찾아 인덱스(없으면 –1)를 반환 ---//
@@ -164,7 +171,7 @@ public class 실습4_2_0정수스택 {
 			case 2: // 팝
 				try {
 					//꼭대기의 데이터를 꺼냄 
-					//'x='이 왜있는거지 > pop을 적용한 데이터를 가져오는건가?
+					//'x='이 왜있는거지 > pop을 적용한 데이터를 가져오는거임
 					x = s.pop();
 					System.out.println("팝한 데이터는 " + x + "입니다.");
 				} catch (IntStack3.EmptyIntStackException e) {
@@ -183,7 +190,7 @@ public class 실습4_2_0정수스택 {
 					e.printStackTrace();
 				}
 				break;
-
+				//곽채웠다가 pop하면 pop한 숫자도 나옴
 			case 4: // 덤프
 				try {
 					s.dump();
@@ -194,5 +201,6 @@ public class 실습4_2_0정수스택 {
 				break;
 			}
 		}
+		System.out.println("실행종료");
 	}
 }

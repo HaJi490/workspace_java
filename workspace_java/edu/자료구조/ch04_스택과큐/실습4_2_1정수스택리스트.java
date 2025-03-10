@@ -63,43 +63,52 @@ class IntStack4 {
 		//추가
 		if (isEmpty()) // 스택이 비어있으면 true, 아니면 false
 			throw new EmptyIntStackException("pop: stack empty");
-		int val = stk.get(top-1);
-		stk.remove(--top);
-		return val;
+		
+		return stk.remove(--top) ;
 	}
 
 	//--- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
 	public int peek() throws EmptyIntStackException {
+		//추가
 		if (isEmpty()) // 스택이 비어있으면 true, 아니면 false
 			throw new EmptyIntStackException("peek: stack empty");
-		//추가
+		return stk.get(top-1);
 	}
 
 	//--- 스택을 비움 ---//
 	public void clear() throws EmptyIntStackException {
 		/*
 		 * stack을 empty로 만들어야 한다.
-		 * stack이 empty일 때 clear()가 호출된 예외 발생해야 한다 
+		 * stack이 empty일 때 clear()가 호출되면 예외 발생해야 한다 
 		 * pop()으로 구현하지 않고 대신에 while 문으로 remove()를 반복 실행한다
 		 */
 		if (isEmpty()) // 스택이 빔
 			throw new EmptyIntStackException("peek: stack empty");
 		//추가
+		while (top > 0)
+			stk.remove(--top);
+		
 	}
 
 	//--- 스택에서 x를 찾아 인덱스(없으면 –1)를 반환 ---//
 	public int indexOf(int x) {
 		//추가
+		int num = stk.indexOf(x);
+		if(num == x)
+			return num;
+		return -1;
 	}
 
 	//--- 스택의 크기를 반환 ---//
 	public int getCapacity() {
 		//추가
+		return capacity;
 	}
 
 	//--- 스택에 쌓여있는 데이터 갯수를 반환 ---//
 	public int size() {
 		//추가
+		return top;
 	}
 
 	//--- 스택이 비어있는가? ---//
@@ -128,6 +137,7 @@ class IntStack4 {
 		}
 		else {
 			//추가할 부분
+			System.out.println(stk);
 		}
 	}
 }
@@ -150,10 +160,10 @@ public class 실습4_2_1정수스택리스트 {
 			switch (menu) {
 
 			case 1: // 푸시
-				System.out.print("데이터: ");
 				x = rnd.nextInt(10);
 				try {
 					s.push(x);
+					System.out.println("푸시한 데이터는 " + x + "입니다.");
 				} catch (IntStack4.OverflowIntStackException e) {
 					System.out.println("스택이 가득 찼습니다." + e.getMessage());
 					e.printStackTrace();
