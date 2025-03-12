@@ -35,6 +35,7 @@ class Queue4 {
 
 	//--- 생성자(constructor) ---//
 	public Queue4(int maxlen) {
+		//ArrayList는 앞에 인덱스 삭제되면 뒤에서 한칸씩 자동으로 옮김
 		que = new ArrayList<Integer>(maxlen);
 		capacity = maxlen;
 		front = rear = 0;
@@ -61,9 +62,7 @@ class Queue4 {
 //		que.remove(0);
 //		rear--;
 		int result = que.remove(front);
-		front++;
-		if(front == capacity)
-			front = 0;
+		rear--;
 		return result;
 	}
 
@@ -84,6 +83,10 @@ class Queue4 {
 
 //--- 큐에서 x를 검색하여 인덱스(찾지 못하면 –1)를 반환 ---//
 	public int indexOf(int x) {
+		for(int i = 0 ; i < rear ; i++)
+			if(que.get(i)==x)
+				return i;
+		return -1;
 
 	}
 
@@ -116,7 +119,7 @@ class Queue4 {
 		if(que.size()<= 0)
 			System.out.println("큐가 비어있습니다.");
 		System.out.print("front :");
-		for(int i = front ; i <= rear ; i++) {
+		for(int i = front ; i < rear ; i++) {
 			if(i == capacity)
 				i = 0;
 			System.out.println(que.get(i)); 

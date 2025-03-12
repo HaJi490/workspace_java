@@ -109,18 +109,19 @@ public class 실습5_3_2nonrecursive_stack {
 	// --- 재귀를 제거한 recur ---//
 	static void recur(int n) {
 		IntStack s = new IntStack(n);
+		//p.175
 		//stack을 사용한 non-recursive 알고리즘 구현 코드로 대단히 중요: 암기수준으로 가야 한다 >8-queen 문제 해결에 활용 
 		while (true) {
 			if (n > 0) {
 				s.push(n); // n 값을 푸시
 				n = n - 1;
-				continue;
+				continue;//while문의 맨 앞으로 돌아감
 			}
 			if (!s.isEmpty()) { // 스택이 비어 있지 않으면
 				n = s.pop(); // 저장하고 있던 값을 n에 팝
 				System.out.println(n);
 				n = n - 2;
-				continue;
+				continue;//while문의 맨 앞으로 돌아감
 			}
 			break;
 		}

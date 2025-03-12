@@ -26,26 +26,33 @@ class objectQueue2 {
 	boolean isEmptyTag;
 
 
-//--- 실행시 예외: 큐가 비어있음 ---//
+	//--- 실행시 예외: 큐가 비어있음 ---//
 	public class EmptyQueueException extends RuntimeException {
-		public EmptyQueueException() {
+		public EmptyQueueException(String msg) {
+			super(msg);
 		}
 	}
 
-//--- 실행시 예외: 큐가 가득 찼음 ---//
+	//--- 실행시 예외: 큐가 가득 찼음 ---//
 	public class OverflowQueueException extends RuntimeException {
-		public OverflowQueueException() {
+		public OverflowQueueException(String msg) {
+			super(msg);
 		}
 	}
 
-//--- 생성자(constructor) ---//
-public objectQueue2(int maxlen) {
-
-}
+	//--- 생성자(constructor) ---//
+	public objectQueue2(int maxlen) {
+		capacity = maxlen;
+		front = rear = 0;
+		que = new Point3[maxlen];//배열의 사이즈가 maxlen인 객체 생성
+		isEmptyTag = true;
+	}
 
 //--- 큐에 데이터를 인큐 ---//
 	public int enque(Point3 x) throws OverflowQueueException {
-
+		if(isFull())
+			throw new OverflowQueueException("enque : out of stack");
+		
 	}
 
 //--- 큐에서 데이터를 디큐 ---//

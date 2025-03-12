@@ -48,7 +48,7 @@ class objectStack {
 		// 추가
 		public EmptyGenericStackException(String msg) {
 			System.out.println(msg);
-			//super(msg); 왜??
+			//super(msg); 왜??>> 부모클래스가 예외메세지를 내보내는 생성자를 가져서
 		}
 	}
 

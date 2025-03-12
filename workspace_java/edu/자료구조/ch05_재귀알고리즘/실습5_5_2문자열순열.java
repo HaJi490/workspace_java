@@ -20,18 +20,33 @@ package ch05_재귀알고리즘;
 public class 실습5_5_2문자열순열 {
 
     // 주어진 문자 배열의 순열을 생성하는 함수
-    public static void permutate(char[] arr, int index) {
-        
+    public static void permutate(char[] arr, int k) {
+    	//int m = arr.length -1 ;
+    	if (k == (arr.length-1)) {//permutation 출력
+        	for (char c : arr)
+        		System.out.print(c);
+        	System.out.println("\n");
+        }
+        else {
+        	for (int i = k ; i < arr.length; i++) {
+        		swap(arr, k , i);
+        		permutate(arr, k+1); //recursive하면 간단
+        		swap(arr, k, i);
+        	}
+        }
     }
 
     // 두 요소를 교환하는 함수
     public static void swap(char[] arr, int i, int j) {
-
+    	char temp = arr[i];
+    	arr[i] = arr[j];
+    	arr[j] = temp;
     }
 
     public static void main(String[] args) {
         // 문자열을 문자 배열로 변환
         String l = "abcde";
+        //toCharArray() #String 문자열을 char형 배열로 반환
         char[] arr = l.toCharArray();
 
         // 순열 생성 및 출력

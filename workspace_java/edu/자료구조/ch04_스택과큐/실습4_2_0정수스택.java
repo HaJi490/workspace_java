@@ -44,7 +44,6 @@ class IntStack3 {
 	public class OverflowIntStackException extends RuntimeException {
 		//생성자 추가
 		public OverflowIntStackException(String msg) {
-			//왜 super로 받는지??
 			super(msg);
 		}
 	}
