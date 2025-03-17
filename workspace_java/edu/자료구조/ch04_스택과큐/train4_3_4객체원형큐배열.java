@@ -31,6 +31,24 @@ class Point5 {
 		this.iy = iy;
 	}
 
+	public int getIx() {
+		return ix;
+	}
+
+	public void setIx(int ix) {
+		this.ix = ix;
+	}
+
+	public int getIy() {
+		return iy;
+	}
+
+	public void setIy(int iy) {
+		this.iy = iy;
+	}
+	
+	
+
 }
 
 class CircularQueue {
@@ -38,6 +56,7 @@ class CircularQueue {
 	Point5[] que;// 배열로 객체원형 큐 구현
 	int front, rear;
 	boolean isEmptyTag;
+	//int num;
 
 	// --- 실행시 예외: 큐가 비어있음 ---//
 	public class EmptyQueueException extends RuntimeException {
@@ -69,6 +88,8 @@ class CircularQueue {
 		}
 		//추가
 		que[rear++] = it;
+		if(rear == QUEUE_SIZE)
+			rear = 0;
 		isEmptyTag = false;
 	}
 
@@ -110,33 +131,46 @@ class CircularQueue {
 			return rear - front;
 		else if (front > rear)
 			return (rear - front)+QUEUE_SIZE;
-		else {
-			if(isE)
+		else if(!isEmptyTag)
+				return QUEUE_SIZE;
+		return 0;
 		}
-	}
+	
 
 	// --- 원형 큐가 비어있는가? --- 수정 필요//
 	public boolean isEmpty() {
-//추가
+		//추가
+		if(isEmptyTag)
+			return true;
+		return false;
 	}
 
 	// --- 원형 큐가 가득 찼는가? --- 수정 필요//
 	public boolean isFull() {
-//추가
+		//추가
+		if(size() == QUEUE_SIZE)
+			return true;
+		return false;
 	}
 
 	public void dump() throws EmptyQueueException {
 		if (isEmpty())
 			throw new EmptyQueueException("dump: queue empty");
 		else {
-//추가
+			//추가
+			for(int i = front; i< rear ; i++) {
+				if(i == QUEUE_SIZE)
+					i = 0;
+				System.out.println("[" + que[i].getIx() + ", "+ que[i].getIy()+"]");
+			}
 		}
 	}
 
 	public Point5 peek() throws EmptyQueueException {
 		if (isEmpty())
 			throw new EmptyQueueException("peek: queue empty"); // 큐가 비어있음
-//추가
+		//추가
+		return que[front].getIx() + que[front].getIy();
 	}
 }
 
