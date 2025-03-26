@@ -96,7 +96,6 @@ class CircularQueue {
 	Point5 pop() throws EmptyQueueException {
 		if (isEmpty()) {
 			throw new EmptyQueueException("pop: circular queue overflow");
-			//isEmptyTag = true;
 		}
 		//추가
 		Point5 result = que[front];
@@ -104,6 +103,8 @@ class CircularQueue {
 		if(front == QUEUE_SIZE) {
 			front = 0;
 		}
+		if(front == rear)
+			isEmptyTag = true;
 		return result;
 	}
 
@@ -158,10 +159,12 @@ class CircularQueue {
 			throw new EmptyQueueException("dump: queue empty");
 		else {
 			//추가
-			for(int i = front; i< rear ; i++) {
+			for(int i = 0; i< size(); i++) {
 				if(i == QUEUE_SIZE)
 					i = 0;
-				System.out.println("[" + que[i].getIx() + ", "+ que[i].getIy()+"]");
+				int a = que[(i+front)%QUEUE_SIZE].getIx();
+				int b = que[(i+front)%QUEUE_SIZE].getIy();
+				System.out.println("[" + a +", "+ b+"]");
 			}
 		}
 	}
@@ -170,7 +173,7 @@ class CircularQueue {
 		if (isEmpty())
 			throw new EmptyQueueException("peek: queue empty"); // 큐가 비어있음
 		//추가
-		return que[front].getIx() + que[front].getIy();
+		return que[front];
 	}
 }
 
@@ -197,9 +200,9 @@ public class train4_3_4객체원형큐배열 {
 				p = new Point5(rndx, rndy);
 				try {
 					oq.push(p);
-					System.out.println("push: size() = " + oq.size());
+					System.out.println("\npush: size() = " + oq.size());
 				} catch (CircularQueue.OverflowQueueException e) {
-					System.out.println("queue이 full입니다." + e.getMessage());
+					System.out.println("\nqueue이 full입니다." + e.getMessage());
 					e.printStackTrace();
 				}
 				break;
@@ -207,9 +210,10 @@ public class train4_3_4객체원형큐배열 {
 			case 2: // 디큐
 				try {
 					p = oq.pop();
+					System.out.println("(" + p.getIx()+ ", " + p.getIy()+ ")"+ "를 팝하였습니다.");
 					System.out.println("pop: size() = " + oq.size());
 				} catch (CircularQueue.EmptyQueueException e) {
-					System.out.println("queue이 비어있습니다." + e.getMessage());
+					System.out.println("\nqueue이 비어있습니다." + e.getMessage());
 					e.printStackTrace();
 				}
 				break;
@@ -217,7 +221,7 @@ public class train4_3_4객체원형큐배열 {
 			case 3: // 피크
 				try {
 					p = oq.peek();
-					System.out.println("피크한 데이터는 " + p + "입니다.");
+					System.out.println("피크한 데이터는 (" + p.getIx() +", "+ p.getIy()+ ")입니다.");
 				} catch (CircularQueue.EmptyQueueException e) {
 					System.out.println("queue이 비어있습니다." + e.getMessage());
 					e.printStackTrace();

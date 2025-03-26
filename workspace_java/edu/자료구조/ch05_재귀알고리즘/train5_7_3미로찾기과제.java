@@ -131,7 +131,7 @@ public class train5_7_3미로찾기과제 {
 			 //마지막칸 갔을때
 		      if ((g == m) && (h == p)) {
 		    	  //success;
-		    	  System.out.println("Success!");
+		    	  System.out.println("\n\n"+"*".repeat(10)+"Success!"+"*".repeat(10));
 		    	  //(i,j)와 (g,h)에 대하여 mark 표시
 		    	  mark[g][h] =2;
 		    	  mark[g][h] =2;
@@ -143,35 +143,33 @@ public class train5_7_3미로찾기과제 {
 		         //dir = dir++;//next direction to try
 		         stk.push(item);// to top of stack;
 		         i = g; j = h; dir = 0;
-		         show("진행중", mark);
+		         //show("진행중", mark);
 		      }
 		      else {
 		          dir++; //try next direction
 		      }
 		   }
-//		   while(mark[2][2] != 0) {
-//			   item = stk.pop();//(i,j) //현위치에 대한 mark를 취소
+		   while(!stk.isEmpty()) {
+			   item = stk.pop();//(i,j) //현위치에 대한 mark를 취소
 //			   i=item.x; j=item.y; //pop해서 가져온값이 1,1임
 //			   mark[i][j]=0;
-//			   show("삭제중", mark);
-//			   if(stk.isEmpty()) {
-//				   i = 1; j = 1; dir = 2;
-//				   stk.push(item);
-//			   }
-//		   }
+		   }
+		   if(stk.isEmpty()) {
+			   i = 1; j = 1; dir = 2;
+			   stk.push(item);
+		   }
 		}
 		System.out.println("경로 없음");
 
 	}
 	
 	static void show(String str, int[][] arr) {//14, 17
-		System.out.println("\n"+"-".repeat(50));
-		System.out.println(str);
+		System.out.println("\n"+str);
 		for(int i = 0 ; i < arr.length ; i++) {
-			System.out.println();
 			for(int j = 0 ; j < arr[0].length ; j++) {
 				System.out.print(arr[i][j]);
 			}
+			System.out.println();
 		}
 	}
 
@@ -237,7 +235,7 @@ public class train5_7_3미로찾기과제 {
 
 		show("maze[12,15]::", maze);
 		show("mark[12,15]::", mark);
-
+		
 		try {
 			path(maze, mark, 12, 15);
 		} catch (EmptyGenericStackException e) {
