@@ -112,21 +112,32 @@ class LinkedList1 {
 		 * 합병/이것은 새로운 노드를 만들지 않고 합병하는 알고리즘 구현 난이도 등급: 최상 a = (3, 5, 7), b = (2,4,8,9)이면
 		 * a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 		 */
-		Node1 pl = first;
-		Node1 pl2 = b.first;
+		Node1 pl = first, q= null;
+		Node1 pl2 = b.first, q2= null;
+		
 
 		while (pl2 != null && pl != null) {
-			// pl2가 pl(기준)보다 작을 때
-			if (pl.data <= pl2.data) {
-				pl2.link = pl;
+			
+			if (pl.data >= pl2.data) {// pl이 더 클때
 				if (pl == first) {// pl이 first일때
-					first = pl2;
+					first = q2 = pl2;
+					q2.link = pl;
 				} else {// pl 중간에 넣을때
-					pl2 = pl2.link;
+					q2 = pl2;
+					q.link = q2;
 				}
-			}else {//pl이 더 클때
-				pl.link = pl2;
+				pl2 = pl2.link;
+			
+			}else {//pl이 더 작을때
+				q = pl;
+				q.link = pl2;
 				pl = pl.link;
+				if(pl.data < pl2.data) {
+					q.link = pl;
+				}
+				if(pl.data < q2.data) {
+					q.link = q2;
+				}
 			}
 		}
 		
