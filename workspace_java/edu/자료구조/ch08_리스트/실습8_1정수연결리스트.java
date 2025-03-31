@@ -107,6 +107,7 @@ class LinkedList1 {
 	}
 
 	void Merge(LinkedList1 b) {
+		//a가 결과
 		/*
 		 * 연결리스트 a,b에 대하여 a = a + b merge하는 알고리즘 구현으로 in-place 방식(새로운 Node를 만들지 않음)으로
 		 * 합병/이것은 새로운 노드를 만들지 않고 합병하는 알고리즘 구현 난이도 등급: 최상 a = (3, 5, 7), b = (2,4,8,9)이면
@@ -119,25 +120,38 @@ class LinkedList1 {
 		while (pl2 != null && pl != null) {
 			
 			if (pl.data >= pl2.data) {// pl이 더 클때
+				q2 = pl2;
 				if (pl == first) {// pl이 first일때
-					first = q2 = pl2;
+					first = pl2;
+					pl2 = pl2.link;
 					q2.link = pl;
 				} else {// pl 중간에 넣을때
-					q2 = pl2;
-					q.link = q2;
+					//q2 = pl2;
+					pl2 = pl2.link;
+					q2.link = pl;
 				}
-				pl2 = pl2.link;
+				while(pl.data > pl2.data) {
+					q2.link = pl2;
+					pl2.link = pl;//<-
+					q2 = pl2;
+					pl2 = pl2.link; // 이게 pl이됨
+					if(pl2 == null) break;
+				}
 			
 			}else {//pl이 더 작을때
 				q = pl;
 				q.link = pl2;
 				pl = pl.link;
-				if(pl.data < pl2.data) {
+				while(pl.data < pl2.data) {
 					q.link = pl;
+					pl.link = pl2;// <-
+					q = pl;
+					pl = pl.link;//
+					if(pl == null) break;
 				}
-				if(pl.data < q2.data) {
-					q.link = q2;
-				}
+//				if(pl.data < q2.data) {
+//					q.link = q2;
+//				}
 			}
 		}
 		

@@ -89,7 +89,8 @@ class ObjectStack5 {
 
 //--- 스택에서 x를 찾아 인덱스(없으면 –1)를 반환 ---//
 	public int indexOf(TreeNode5 x) {
-
+		
+		return -1;
 	}
 
 //--- 스택의 크기를 반환 ---//
@@ -135,22 +136,35 @@ class ObjectQueue5 {
 
 //--- 실행시 예외: 큐가 비어있음 ---//
 	public class EmptyQueueException extends RuntimeException {
-
+		public EmptyQueueException(String msg) {
+			super(msg);
+		}
 	}
 
 //--- 실행시 예외: 큐가 가득 찼음 ---//
 	public class OverflowQueueException extends RuntimeException {
-
+		public OverflowQueueException(String msg) {
+			super(msg);
+		}
 	}
 
 //--- 생성자(constructor) ---//
 	public ObjectQueue5(int maxlen) {
-
+		que = new TreeNode5[maxlen];
+		capacity = maxlen;
+		front = rear = 0;
 	}
 
 //--- 큐에 데이터를 인큐 ---//
 	public int enque(TreeNode5 x) throws OverflowQueueException {
-
+		if(isFull()) {
+			throw new OverflowQueueException("enque: overflow");
+		}
+		que[rear] = x;
+		rear++;
+		if(rear == capacity)
+			rear = 0;
+		return x;
 	}
 
 //--- 큐에서 데이터를 디큐 ---//

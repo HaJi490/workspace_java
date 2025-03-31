@@ -150,9 +150,13 @@ public class train6_1_QuickSort {
 	// --- 퀵 정렬(비재귀 버전)---//
 	static void quickSort(int[] a, int left, int right) {
 		//p232-233 참고
-		Stack3 st = new Stack3(10);
+		//Stack3 st = new Stack3(10);
+		Stack3 lstack = new Stack3(right - left + 1);
+		Stack3 rstack = new Stack3(right - left + 1);
 		Point pt = new Point(left, right);
-		st.push(pt);
+		//st.push(pt);
+		lstack.push(pt);
+		
 
 	}
 
