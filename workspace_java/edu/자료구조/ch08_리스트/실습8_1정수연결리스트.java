@@ -132,9 +132,9 @@ class LinkedList1 {
 				}
 				while(pl.data > pl2.data) {
 					q2.link = pl2;
-					pl2.link = pl;//<-
 					q2 = pl2;
-					pl2 = pl2.link; // 이게 pl이됨
+					q2.link = pl;
+					pl2 = pl2.link; 
 					if(pl2 == null) break;
 				}
 			
@@ -144,8 +144,8 @@ class LinkedList1 {
 				pl = pl.link;
 				while(pl.data < pl2.data) {
 					q.link = pl;
-					pl.link = pl2;// <-
 					q = pl;
+					q.link = pl2;// <-
 					pl = pl.link;//
 					if(pl == null) break;
 				}
