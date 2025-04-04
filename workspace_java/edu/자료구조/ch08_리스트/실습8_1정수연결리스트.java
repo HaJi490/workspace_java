@@ -75,7 +75,6 @@ class LinkedList1 {
 			first = newNode;
 			return;
 		}
-		//지우고 해보기
 		//추가(현재보다 클때, 작을때, 같을때)
 		Node1 p = first, q = null;	//p, q변수를 사용하는 것이 중요
 		while(p != null) {
@@ -127,26 +126,31 @@ class LinkedList1 {
 					q2.link = pl;
 				} else {// pl 중간에 넣을때
 					//q2 = pl2;
-					pl2 = pl2.link;
-					q2.link = pl;
-				}
-				while(pl.data > pl2.data) {
-					q2.link = pl2;
-					q2 = pl2;
-					q2.link = pl;
 					pl2 = pl2.link; 
+					q2.link = pl;
+					if(pl2 == null) break;
+				}
+				while(pl.data > pl2.data) {//pl2 = null > 위에 else에서(해결) 
+					//Node1 temp = pl2.link;
+					q2.link = pl2;
+					q2 = pl2; 
+					pl2 = pl2.link; 
+					q2.link = pl; //같은 객체를 참조해서 pl2.link도 바뀌게됨 > temp추가
 					if(pl2 == null) break;
 				}
 			
 			}else {//pl이 더 작을때
+				//Node1 temp1 = pl.link;
 				q = pl;
-				q.link = pl2;
 				pl = pl.link;
+				q.link = pl2; //같은객체를 참조해서 pl.link도 바뀌게 됨 > pl = pl.link를 위에서함
+				if (pl == null) break;
 				while(pl.data < pl2.data) {
+					Node1 temp = pl.link;
 					q.link = pl;
 					q = pl;
-					q.link = pl2;// <-
-					pl = pl.link;//
+					q.link = pl2;
+					pl = temp;
 					if(pl == null) break;
 				}
 //				if(pl.data < q2.data) {

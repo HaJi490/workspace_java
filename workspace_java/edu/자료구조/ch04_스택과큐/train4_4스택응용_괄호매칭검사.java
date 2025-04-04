@@ -31,38 +31,36 @@ public class train4_4스택응용_괄호매칭검사 {
     	pairs.put('<', '>');
         
         Stack<Character> stk = new Stack<>(); //올바른 괄호순서
-        Queue<Character> queue = new LinkedList<>();//문자열의 닫힘괄호
         
-        // 닫힘 괄호가 잘못들어가있으면 못잡아냄
         for ( int i = 0 ; i < s.length() ; i++ ) {
-        	//1-1. pairs의 키값과 일치할때 pairs의 value를 stk에 넣음
-        	if(pairs.containsKey(s.charAt(i))) {
-        		stk.add(pairs.get(s.charAt(i)));
-        	}
-        	// 2-1. 잘못 들어간 닫힘괄호 잡기?
-        	if(pairs.containsValue(s.charAt(i))) {
-        		queue.offer(s.charAt(i));
+        	char c = s.charAt(i); //1.
+        	
+        	//여는 괄호인 경우, 스택에 해당하는 닫는 괄호를 추가
+        	if(pairs.containsKey(c)) {
+        		stk.add(pairs.get(c));
         	}
         	
-        	// 1-2.일치하는 닫힘 괄호가 있으면 pop
-        	if(!stk.empty() && stk.peek() == s.charAt(i)) {
-        		stk.pop();
-        	} 
+        	//닫는 괄호인 경우, 스택이 비어있거나 스택의 top과 일치하지 않으면 false
+        	if(pairs.containsValue(c)) {
+        		if(stk.isEmpty() || stk.pop() != c) {
+        			System.out.println("\n[Invalid]");
+        			return false;
+        		}
+        	}
+        	//괄호가 아닌 문자는 무시
         }
         
-//        while ( !stk.empty()) {
-//        	if(stk.pop() != queue.poll()) {
-//        		System.out.println("\n[Invalid]");
-//        		return false;
-//        	}
+        // 모든 괄호가 올바르게 짝지어져있다면 스택은 비어있어야함
+        boolean result = stk.empty();
+        System.out.println( result ? "\n[Valid]" : "\n[Invalid]");
+        return result;
+//        if(!stk.empty()) {
+//	    	System.out.println("\\n[Invalid]");
+//	        return false;
 //        }
-        if(stk.empty()) {
-	    	System.out.println("\n[Valid]");
-	        return true;
-        }
-        
-        System.out.println("\n[Invalid]");
-		return false;
+//        
+//        System.out.println("\n[Valid]");
+//		return true;
     }
 
     public static void main(String[] args) {

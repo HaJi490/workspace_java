@@ -16,6 +16,16 @@ class SimpleObject3 {
 	private String no; // 회원번호
 	private String name; // 이름
 	String expire;//  유효기간 필드를 추가
+	
+	//번호 게터/세터
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
 	// --- 문자열 표현을 반환 ---//
 	public String toString() {
 		return "(" + no + ") " + name;
@@ -77,7 +87,7 @@ class Node3 {
 class CircularList {
 	Node3 first; //원형일때는 first보다 last를 가리키는게 코드가 더 간결함**
 
-	public CircularList() { //head node
+	public CircularList() { //head node(데이터를 갖지않는 더미노드)
 		SimpleObject3 data = new SimpleObject3();
 		first = new Node3(data);
 		first.link = first;
@@ -92,40 +102,94 @@ class CircularList {
 	 * arr.length; i++) { for (int j = i; j < arr.length; j++) if
 	 * (cc.compare(arr[i], arr[j])> 0) swap(arr, i, j); } }
 	 */
-	public int Delete(SimpleObject3 element, Comparator<SimpleObject3> cc) // delete the element
-	{
-		Node3 q, current = first.link;
-		q = current;
-
+	public int Delete(SimpleObject3 element, Comparator<SimpleObject3> cc) { // delete the element
+//		Node3 q, current = first.link;
+		Node3 p = first.link, q = null;
+		// q = current;
+		while( p != first) {
+			if(cc.compare(element, p.data) == 0) {//삭제할 요소가 있으면
+				if ( p != first.link) {
+					q.link = p.link;
+					while(cc.compare(p.data, p.link.data) == 0) { //같은숫자 여러개
+						p = p.link;
+						q.link = p.link;
+					}
+					return Integer.parseInt(p.data.getNo());
+				}else{//first.link 삭제할때
+					first.link = p.link;
+					while(cc.compare(p.data, p.link.data) == 0) { //같은숫자 여러개
+						p = p.link;
+						first.link = p.link;
+					}
+					return Integer.parseInt(p.data.getNo());
+				}
+			}
+			q = p; p = p.link;
+		}
 		return -1;// 삭제할 대상이 없다.
 	}
 
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
 		Node3 p = first.link;
 		SimpleObject3 so;
+		
+		while(p != first) {
+			System.out.println(p.data);
+			p = p.link;
+		}
 
 	}
 
 	public void Add(SimpleObject3 element, Comparator<SimpleObject3> cc) {// 임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
 		Node3 newNode = new Node3(element);
-		//head node가 없는 경우
-		if (first == null) {
-			first = newNode;
-			return;
-		}
+		// Node3 last = null;
+		//head node가 없는 경우 -->항상 더미노드가 있지않나
+//		if (first == null) {
+//			first = newNode;
+//			first.link = first;
+//			return;
+//		}
 		//head node가 있는 경우: 맨처음에 아무것도 없을때 자기자신을 가리킴, 코드가 더 간결함**
-		if(first.link == first){// 비었다는 뜻
+		if(first.link == first){// 더미노드만 있음
 			newNode.link = first;
 			first.link = newNode;
+			return;
 		}
-	
+		
+		//넣을 자리 찾기
+		Node3 p = first.link, q = null;
+		while (p != first) {
+			if(cc.compare(element, p.data) == -1 || cc.compare(element, p.data) == 0){// element가 더 작을때
+				newNode.link = p;
+				if ( p != first.link) {//중간에 넣을때
+					q.link = newNode;
+					return;
+				}else { //first.link에 넣을때
+					first.link = newNode;
+					return;
+				}
+			}// element가 더 클때
+			q=p; p = p.link;
+		}//제일 끝에 넣을때
+		q.link = newNode;
+		newNode.link = first;
 	}
+	
+	
 
 	public boolean Search(SimpleObject3 element, Comparator<SimpleObject3> cc) { // 전체 리스트를 순서대로 출력한다.
-		Node3 q, current = first.link;
-
+		Node3 current = first.link, q = null;
+		//Node3 p= first.link; //더미노드 이후부터
+		
+		while(current != first) {
+			if(cc.compare(element, current.data) == 0) {
+				return true;
+			}
+			q = current ; current = current.link;
+		}
 		return false;
 	}
+	
 	void Merge(CircularList2 b, Comparator<SimpleObject3> cc) {
 		/*
 		 * 연결리스트 a,b에 대하여 a = a + b
@@ -193,7 +257,10 @@ public class train8_4객체원형리스트 {
 				data = new SimpleObject3();
 				data.scanData("삭제", SimpleObject3.NO);
 				int num = l.Delete(data, SimpleObject3.NO_ORDER);
-				System.out.println("삭제된 데이터 성공은 " + num);
+				if(num != -1)
+					System.out.println("[삭제 성공] 삭제된 데이터는 " + num);
+				else
+					System.out.println("[삭제 실패]");
 				break;
 			case Show: 
 				l.Show();

@@ -1,4 +1,4 @@
-package ch08_리스트;
+package ds;
 /*
  * 정수 리스트 > 객체 리스트: 2번째 실습 대상
  */
@@ -170,15 +170,6 @@ class LinkedList2 {
 //		 * 난이도 등급: 최상급
 //		 * 회원번호에 대하여 a = (3, 5, 7), b = (2,4,8,9)이면 a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 //		 */
-//		// b가 비어있으면 병합할 필요없음
-//		if(b.first == null) return;
-//		
-//		// 현재 리스트가 비어있으면 b를 그대로 사용
-//		if(first == null) {
-//			first = b.first;
-//			return;
-//		}
-//		
 //		Node2 pl = first, q = null;
 //		Node2 pl2 = b.first, q2 =null;
 //		
@@ -218,19 +209,59 @@ class LinkedList2 {
 //		}
 //	}
 	void Merge(LinkedList2 b, Comparator<SimpleObject5> cc) {
-		// b가 비어있으면 병합할 필요없음
-	if(b.first == null) return;
-//		
-//		// 현재 리스트가 비어있으면 b를 그대로 사용
-//		if(first == null) {
-//			first = b.first;
-//			return;
-//		}
+	    // b가 비어있으면 병합할 필요 없음
+	    if (b.first == null) return;
+	    
+	    // 현재 리스트가 비어있으면 b를 그대로 사용
+	    if (first == null) {
+	        first = b.first;
+	        return;
+	    }
+	    
+	    Node2 result = null;  // 결과 리스트의 머리
+	    Node2 tail = null;    // 결과 리스트의 마지막 노드
+	    Node2 p1 = first;     // 현재 리스트 포인터
+	    Node2 p2 = b.first;   // b 리스트 포인터
+	    
+	    // 결과 리스트의 첫 노드 결정
+	    if (cc.compare(p1.data, p2.data) <= 0) {
+	        result = p1;
+	        p1 = p1.link;
+	    } else {
+	        result = p2;
+	        p2 = p2.link;
+	    }
+	    
+	    tail = result;
+	    
+	    // 두 리스트를 병합
+	    while (p1 != null && p2 != null) {
+	        if (cc.compare(p1.data, p2.data) <= 0) {
+	            tail.link = p1;
+	            tail = p1;
+	            p1 = p1.link;
+	        } else {
+	            tail.link = p2;
+	            tail = p2;
+	            p2 = p2.link;
+	        }
+	    }
+	    
+	    // 남은 노드 연결
+	    if (p1 != null) {
+	        tail.link = p1;
+	    } else {
+	        tail.link = p2;
+	    }
+	    
+	    // 새로운 병합된 리스트를 current로 설정
+	    first = result;
+	    
+	    // b 리스트는 이제 비어있음 (필요시)
+	    // b.first = null;
 	}
-	
 }
-
-public class train8_2객체연결리스트 {
+public class P2 {
 
 	enum Menu {
 		Add( "삽입"), Delete( "삭제"), Show( "인쇄"), Search( "검색"), Merge("합병"), Exit( "종료");

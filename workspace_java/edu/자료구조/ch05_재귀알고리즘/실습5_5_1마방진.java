@@ -1,7 +1,7 @@
 package ch05_재귀알고리즘;
 
 /*
- * 마방진: 마법 magic + 정방형 배열 + 배치 진열의 진 > 숫자를 특이하게 배열하여 모든 방향의 합이 일정
+ * 마방진: 마법 magic + 정방형 배열 + 배치 진열의 진 > 숫자를 특이하게 배열하여 모든 방향의 합이 일정 (홀수만됨)
  * **매직 스퀘어(Magic Square)**는 n×n 크기의 정사각형 배열에 숫자를 배치하되, 
  * 모든 행, 열, 대각선의 숫자 합이 동일하게 되는 배열을 말합니다. 
  * 이때 이 동일한 합을 **매직 상수(Magic Constant)**라고 합니다.
@@ -75,11 +75,44 @@ public class 실습5_5_1마방진 {
     }
 
     // 마방진 유효성 검증 메서드
+	/*
+	 * recur도 되지만 너무 복잡해서 java터질 수 있음
+	 * 
+	 * rowSum() – i번째 행의 합을 재귀적으로 구함.
+	 * 
+	 * colSum() – i번째 열의 합을 재귀적으로 구함.
+	 * 
+	 * diagSum1() – ↘ 방향 대각선 합을 재귀적으로 구함.
+	 * 
+	 * diagSum2() – ↙ 방향 대각선 합을 재귀적으로 구함.
+	 * 
+	 * isMagicSquare() – 모든 합을 비교하여 마방진인지 확인.
+	 * 
+	 * 
+	 *  static int rowSum(int[][] magicSquare) {
+	    	int total = 0;
+	    	int i = 0; //가로배열 인덱스
+	    	int j = 0; //세로배열 인덱스
+	    	if( j < magicSquare[0].length ) {
+	    		rowSum(magicSquare[i][j+1]);
+	    	}
+	    	if ( i < magicSquare.length) {
+	    		rowSum(magicSquare[i+1][j]);
+	    	}
+	    	return total;
+	    }
+
+	 * 
+	 */
+	   
+    
     static boolean checkSquare(int[][] magicSquare, int magicSum) {
+	
     	// 구현
-    	//가로합 구하기
     	int arr[] = new int[magicSquare.length];
     	int total = 0;
+    	
+    	//가로합 구하기
     	for(int i = 0 ; i < magicSquare.length ; i++) {
     		total=0;
     		for(int j = 0 ; j < magicSquare[0].length ; j++ ) {

@@ -3,6 +3,8 @@ package ch11_그래프;
 /*
  * 해밀턴 경로 (Hamiltonian Path)란?
  * 모든 정점을 정확히 한 번씩 방문하는 경로
+ * 
+ * visit배열 만들어서 들어갔던 곳 표기
  */
 
 import java.util.Arrays;
