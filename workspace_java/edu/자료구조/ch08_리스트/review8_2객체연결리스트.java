@@ -261,7 +261,7 @@ class LinkedList2 {
 	    // b.first = null;
 	}
 }
-public class P2 {
+public class review8_2객체연결리스트 {
 
 	enum Menu {
 		Add( "삽입"), Delete( "삭제"), Show( "인쇄"), Search( "검색"), Merge("합병"), Exit( "종료");

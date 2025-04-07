@@ -54,13 +54,7 @@ public class train4_4스택응용_괄호매칭검사 {
         boolean result = stk.empty();
         System.out.println( result ? "\n[Valid]" : "\n[Invalid]");
         return result;
-//        if(!stk.empty()) {
-//	    	System.out.println("\\n[Invalid]");
-//	        return false;
-//        }
-//        
-//        System.out.println("\n[Valid]");
-//		return true;
+
     }
 
     public static void main(String[] args) {
